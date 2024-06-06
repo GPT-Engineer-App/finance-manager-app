@@ -1,0 +1,22 @@
+<!-- add_economia.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adicionar Economia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Adicionar Economia</h1>
+      <form action="add_economia.php" method="POST">
+        <input type="text" name="descricao" placeholder="Descrição" required />
+        <input type="number" step="0.01" name="valor" placeholder="Valor" required />
+        <input type="date" name="data" required />
+        <input type="email" name="usuario_email" placeholder="Email do Usuário" required />
+        <button type="submit">Adicionar</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!-- economias.php -->
+<?php session_start(); if (!isset($_SESSION['email'])) { header("Location: index.html"); exit(); } include 'db.php'; $sql = "SELECT * FROM economia WHERE usuario_email='" . $_SESSION['email'] . "'"; $result = $conn->query($sql); ?>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Economias</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Economias</h1>
+      <canvas id="economiasChart"></canvas>
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if ($result->num_rows > 0) { while($row = $result->fetch_assoc()) { echo "
+          <tr>
+            <td>" . $row["descricao"]. "</td>
+            <td>" . $row["valor"]. "</td>
+            <td>" . $row["data"]. "</td>
+          </tr>
+          "; } } else { echo "
+          <tr>
+            <td colspan="3">No records found</td>
+          </tr>
+          "; } ?>
+        </tbody>
+      </table>
+      <button onclick="location.href='add_economia.html'">Adicionar Economia</button>
+    </div>
+    <script>
+      var ctx = document.getElementById("economiasChart").getContext("2d");
+      var economiasChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho"],
+          datasets: [
+            {
+              label: "Economias",
+              data: [12, 19, 3, 5, 2, 3, 7],
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
